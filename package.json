@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-playground",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Markdown-it plugin for embedded code demos.",
   "main": "lib/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rotorz/markdown-it-block-embed"
+    "url": "https://github.com/RcKeller/markdown-it-playground"
   },
   "author": "Ryan Keller",
   "license": "MIT",

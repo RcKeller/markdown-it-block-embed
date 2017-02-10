@@ -1,8 +1,5 @@
 # markdown-it-playground
 
-[![Dependency Status](https://david-dm.org/rotorz/markdown-it-block-embed.svg)](https://david-dm.org/rotorz/markdown-it-block-embed)
-[![devDependency Status](https://david-dm.org/rotorz/markdown-it-block-embed/dev-status.svg)](https://david-dm.org/rotorz/markdown-it-block-embed#info=devDependencies)
-
 Markdown-it plugin for embedding code demo environments like JSFiddle and CodePen. [View the Demo](http://rykeller.com/preview/playground/)
 
 This was originally a fork of [markdown-it-block-embed](https://github.com/rotorz/markdown-it-block-embed) that is being taken in a direction focusing exclusively on embedded demos.
@@ -64,12 +61,14 @@ Option               | Type                 | Default                  | Descrip
                      |                      |                          |
 `services.{name}`    | `function`           | -                        | A function that constructs a new instance of the service. Can extend `VideoServiceBase`.
 `services.jsfiddle`   | `function`           | `jsfiddleService`         | Implementation of the 'jsfiddle' embed service. Can be overridden by a custom implementation.
+`services.codepen`   | `function`           | `codepenService`         | Implementation of the 'codepen' embed service. Can be overridden by a custom implementation.
                      |                      |                          |
 `{service-name}`     | `object`             | -                        | Options can be supplied to embed services.
                      |                      |                          |
 `jsfiddle.width`      | `number`             | `640`                    | Width of jsfiddle embed.
 `jsfiddle.height`     | `number`             | `390`                    | Height of jsfiddle embed.
-
+`codepen.width`      | `number`             | `640`                    | Width of codepen embed.
+`codepen.height`     | `number`             | `390`                    | Height of codepen embed.
 ## Future Enhancement
 
 - Replacement of unit tests and depreciated ES5 code
