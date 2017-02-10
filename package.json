@@ -1,7 +1,7 @@
 {
-  "name": "markdown-it-block-embed",
-  "version": "0.0.3",
-  "description": "Plugin for markdown-it that detects and outputs block level embeds such as videos and supports custom embed services.",
+  "name": "markdown-it-playground",
+  "version": "0.0.1",
+  "description": "Markdown-it plugin for embedded code demos.",
   "main": "lib/index.js",
   "scripts": {
     "build-browser": "rm -rf dist && mkdir dist && browserify lib/index.js -o dist/markdown-it-block-embed.js -t [ babelify ]",
@@ -16,11 +16,14 @@
     "type": "git",
     "url": "https://github.com/rotorz/markdown-it-block-embed"
   },
-  "author": "Rotorz Limited",
+  "author": "Ryan Keller",
   "license": "MIT",
   "keywords": [
     "markdown-it",
-    "markdown-it-plugin"
+    "markdown-it-plugin",
+    "markdown-it-code",
+    "markdown-it-embed-code",
+    "markdown-it-embed-demo"
   ],
   "dependencies": {},
   "devDependencies": {
