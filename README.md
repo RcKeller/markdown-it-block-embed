@@ -3,26 +3,40 @@
 [![Dependency Status](https://david-dm.org/rotorz/markdown-it-block-embed.svg)](https://david-dm.org/rotorz/markdown-it-block-embed)
 [![devDependency Status](https://david-dm.org/rotorz/markdown-it-block-embed/dev-status.svg)](https://david-dm.org/rotorz/markdown-it-block-embed#info=devDependencies)
 
-Markdown-it plugin for embedding code demos, currently supporting JSFiddle. [View the Demo](http://rykeller.com/preview/fiddle/)
+Markdown-it plugin for embedding code demo environments like JSFiddle and CodePen. [View the Demo](http://rykeller.com/preview/playground/)
 
 This was originally a fork of [markdown-it-block-embed](https://github.com/rotorz/markdown-it-block-embed) that is being taken in a direction focusing exclusively on embedded demos.
 
 **Markdown Input**
 ```markdown
 @[jsfiddle](http://jsfiddle.net/rykeller/y4848ak7/8/embedded/html,css,result/)
+
+@[codepen](http://codepen.io/Yakudoo/embed/YXxmYR/?height=265&amp;theme-id=0&amp;default-tab=js,result&amp;embed-version=2)
+
 ```
 
 **HTML Output**
-```html
-<div class="block-embed block-embed-service-jsfiddle">
-  <iframe type="text/html"
-          src="http://jsfiddle.net/rykeller/y4848ak7/8/embedded/html,css,result/"
-          frameborder="0"
-          width="100%" height="300"
-          webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""
-  ></iframe>
-</div>
-```
+  ```html
+  <div class="block-embed block-embed-service-jsfiddle">
+    <iframe type="text/html"
+            src="http://jsfiddle.net/rykeller/y4848ak7/8/embedded/html,css,result/"
+            frameborder="0"
+            width="100%" height="300"
+            webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""
+    ></iframe>
+  </div>
+  ```
+
+  ```html
+    <div class="block-embed block-embed-service-codepen">
+      <iframe type="text/html"
+      src="http://codepen.io/Yakudoo/embed/YXxmYR/?height=265&amp;amp;theme-id=0&amp;amp;default-tab=js,result&amp;amp;embed-version=2"
+      frameborder="0"
+      width="100%" height="300"
+      webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""
+      ></iframe>
+    </div>
+  ```
 
 ## Usage
 
@@ -58,11 +72,10 @@ Option               | Type                 | Default                  | Descrip
 
 ## Future Enhancement
 
-Integration for:
-- Codepen
-- JSBin
+- Replacement of unit tests and depreciated ES5 code
+- Performance optimization
+- JSBin support
 
-Replacement of unit tests and depreciated code, performance optimization, further documentation upon expansion.
 
 ## Contribution Agreement
 
