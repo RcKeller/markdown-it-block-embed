@@ -1,59 +1,40 @@
-# markdown-it-block-embed [![Build Status](https://travis-ci.org/rotorz/markdown-it-block-embed.svg?branch=master)](https://travis-ci.org/rotorz/markdown-it-block-embed)
+# markdown-it-playground
 
-[![npm version](https://badge.fury.io/js/markdown-it-block-embed.svg)](https://badge.fury.io/js/markdown-it-block-embed)
 [![Dependency Status](https://david-dm.org/rotorz/markdown-it-block-embed.svg)](https://david-dm.org/rotorz/markdown-it-block-embed)
 [![devDependency Status](https://david-dm.org/rotorz/markdown-it-block-embed/dev-status.svg)](https://david-dm.org/rotorz/markdown-it-block-embed#info=devDependencies)
 
-Plugin for markdown-it that detects and outputs block level embeds such as videos and supports custom embed services.
+Markdown-it plugin for embedding code demos, currently supporting JSFiddle. [View the Demo](http://rykeller.com/preview/fiddle/)
 
-This project started as a fork of the [markdown-it-video](https://github.com/brianjgeiger/markdown-it-video)
-package but for the most part has been rewritten to behave as a block element rather than
-an inline one. Implementation of embed services were separated and additional options have
-been added to control the output of the generated embed code.
+This was originally a fork of [markdown-it-block-embed](https://github.com/rotorz/markdown-it-block-embed) that is being taken in a direction focusing exclusively on embedded demos.
 
-
-Example input:
+**Markdown Input**
 ```markdown
-Here is an embedded video:
-
-@[youtube](lJIrF4YjHfQ)
+@[jsfiddle](http://jsfiddle.net/rykeller/y4848ak7/8/embedded/html,css,result/)
 ```
 
-Output (with default options):
+**HTML Output**
 ```html
-<div class="block-embed block-embed-service-youtube">
+<div class="block-embed block-embed-service-jsfiddle">
   <iframe type="text/html"
-          width="640"
-          height="390"
-          src="//www.youtube.com/embed/lJIrF4YjHfQ"
+          src="http://jsfiddle.net/rykeller/y4848ak7/8/embedded/html,css,result/"
           frameborder="0"
-          webkitallowfullscreen mozallowfullscreen allowfullscreen>
-  </iframe>
+          width="100%" height="300"
+          webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""
+  ></iframe>
 </div>
 ```
-
-
-## Install
-
-```
-$ npm install --save markdown-it-block-embed
-```
-
 
 ## Usage
 
 ```javascript
-var md = require("markdown-it")();
-var blockEmbedPlugin = require("markdown-it-block-embed");
+let md = require("markdown-it")();
+let playgroundPlugin = require("markdown-it-playground");
 
-md.use(blockEmbedPlugin, {
-  containerClassName: "video-embed"
-});
+md.use(playgroundPlugin);
 
-var input = "@[youtube](lJIrF4YjHfQ)";
-var output = md.render(input);
-
-console.log(output);
+//  Inline test
+let inlineTest = "@[jsfiddle](http://jsfiddle.net/rykeller/y4848ak7/8/embedded/html,css,result/)";
+console.log(md.render(inlineTest));
 ```
 
 
@@ -68,156 +49,20 @@ Option               | Type                 | Default                  | Descrip
 `filterUrl`          | `function` \| `null` | `null`                   | A function that customizes url output. Signature: `function (url: string, serviceName: string, videoID: string, options: object): string`
                      |                      |                          |
 `services.{name}`    | `function`           | -                        | A function that constructs a new instance of the service. Can extend `VideoServiceBase`.
-`services.youtube`   | `function`           | `YouTubeService`         | Implementation of the 'youtube' embed service. Can be overridden by a custom implementation.
-`services.vimeo`     | `function`           | `VimeoService`           | Implementation of the 'vimeo' embed service. Can be overridden by a custom implementation.
-`services.vine`      | `function`           | `VineService`            | Implementation of the 'vine' embed service. Can be overridden by a custom implementation.
-`services.prezi`     | `function`           | `PreziService`           | Implementation of the 'prezi' embed service. Can be overridden by a custom implementation.
+`services.jsfiddle`   | `function`           | `jsfiddleService`         | Implementation of the 'jsfiddle' embed service. Can be overridden by a custom implementation.
                      |                      |                          |
-`{service-name}`     | `object`             | -                        | Options can be supplied to embed services. 
+`{service-name}`     | `object`             | -                        | Options can be supplied to embed services.
                      |                      |                          |
-`youtube.width`      | `number`             | `640`                    | Width of YouTube embed.
-`youtube.height`     | `number`             | `390`                    | Height of YouTube embed.
-                     |                      |                          |
-`vimeo.width`        | `number`             | `500`                    | Width of Vimeo embed.
-`vimeo.height`       | `number`             | `281`                    | Height of Vimeo embed.
-                     |                      |                          |
-`vine.width`         | `number`             | `600`                    | Width of Vine embed.
-`vine.height`        | `number`             | `600`                    | Height of Vine embed.
-`vine.embed`         | `string`             | `'simple'`               | Type of embed; for instance, `'simple'` or `'postcard'` (see https://dev.twitter.com/web/vine).
-                     |                      |                          |
-`prezi.width`        | `number`             | `550`                    | Width of Prezi embed.
-`prezi.height`       | `number`             | `400`                    | Height of Prezi embed.
+`jsfiddle.width`      | `number`             | `640`                    | Width of jsfiddle embed.
+`jsfiddle.height`     | `number`             | `390`                    | Height of jsfiddle embed.
 
+## Future Enhancement
 
-## Supported Services
+Integration for:
+- Codepen
+- JSBin
 
-HTML embed codes are currently automatically output for the following services:
-
-- YouTube
-- Vimeo
-- Vine
-- Prezi
-
-Custom embed services can be specifying in the options that you provide to the
-`markdown-it-block-embed` plugin.   
-
-
-### YouTube
-
-```md
-@[youtube](lJIrF4YjHfQ)
-```
-
-is interpreted as
-
-```html
-<div class="block-embed block-embed-service-youtube">
-  <iframe type="text/html"
-          width="640"
-          height="390"
-          src="//www.youtube.com/embed/lJIrF4YjHfQ"
-          frameborder="0"
-          webkitallowfullscreen mozallowfullscreen allowfullscreen>
-  </iframe>
-</div>
-```
-
-Alternately, you could use a number of different YouTube URL formats rather than just the video id.
-
-```md
-@[youtube](http://www.youtube.com/embed/lJIrF4YjHfQ)
-@[youtube](https://www.youtube.com/watch?v=lJIrF4YjHfQ&feature=feedrec_centerforopenscience_index)
-@[youtube](http://www.youtube.com/user/IngridMichaelsonVEVO#p/a/u/1/QdK8U-VIH_o)
-@[youtube](http://www.youtube.com/v/lJIrF4YjHfQ?fs=1&amp;hl=en_US&amp;rel=0)
-@[youtube](http://www.youtube.com/watch?v=lJIrF4YjHfQ#t=0m10s)
-@[youtube](http://www.youtube.com/embed/lJIrF4YjHfQ?rel=0)
-@[youtube](http://www.youtube.com/watch?v=lJIrF4YjHfQ)
-@[youtube](http://youtu.be/lJIrF4YjHfQ)
-```
-
-### Vimeo
-
-```md
-@[vimeo](19706846)
-```
-
-is interpreted as
-
-```html
-<div class="block-embed block-embed-service-vimeo">
-  <iframe type="text/html"
-          width="500"
-          height="281"
-          src="//player.vimeo.com/video/19706846"
-          frameborder="0"
-          webkitallowfullscreen mozallowfullscreen allowfullscreen>
-  </iframe>
-</div>
-```
-
-Alternately, you could use the url instead of just the video id.
-
-```md
-@[vimeo](https://vimeo.com/19706846)
-@[vimeo](https://player.vimeo.com/video/19706846)
-```
-
-### Vine
-
-```md
-@[vine](bjHh0zHdgZT)
-```
-
-is interpreted as
-
-```html
-<div class="block-embed block-embed-service-vine">
-  <iframe type="text/html"
-          width="600"
-          height="600"
-          src="//vine.co/v/bjHh0zHdgZT/embed/simple"
-          frameborder="0"
-          webkitallowfullscreen mozallowfullscreen allowfullscreen>
-  </iframe>
-</div>
-```
-
-Alternately, you could use the url, or even the whole embed tag instead of just the video id.
-
-```md
-@[vine](https://vine.co/v/bjHh0zHdgZT/embed/simple)
-@[vine](https://vine.co/v/bjHh0zHdgZT/embed/postcard?audio=1)
-@[vine](<iframe src="https://vine.co/v/bjHh0zHdgZT/embed/simple?audio=1" width="600" height="600" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></script>)
-```
-
-### Prezi
-
-```md
-@[prezi](1kkxdtlp4241)
-```
-
-is interpreted as 
-
-```html
-<div class="block-embed block-embed-service-prezi">
-  <iframe type="text/html"
-          width="550"
-          height="400"
-          src="https://prezi.com/embed/1kkxdtlp4241/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;landing_data=bHVZZmNaNDBIWnNjdEVENDRhZDFNZGNIUE43MHdLNWpsdFJLb2ZHanI5N1lQVHkxSHFxazZ0UUNCRHloSXZROHh3PT0&amp;landing_sign=1kD6c0N6aYpMUS0wxnQjxzSqZlEB8qNFdxtdjYhwSuI"
-          frameborder="0"
-          webkitallowfullscreen mozallowfullscreen allowfullscreen>
-  </iframe>
-</div>
-```
-
-Alternately, you could use the url.
-
-```md
-@[prezi](https://prezi.com/1kkxdtlp4241/valentines-day/)
-@[prezi](https://prezi.com/e3g83t83nw03/destination-prezi-template/)
-@[prezi](https://prezi.com/prg6t46qgzik/anatomy-of-a-social-powered-customer-service-win/)
-```
-
+Replacement of unit tests and depreciated code, performance optimization, further documentation upon expansion.
 
 ## Contribution Agreement
 
